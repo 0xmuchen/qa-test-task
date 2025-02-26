@@ -15,7 +15,7 @@ describe('Down Payment Tests', () => {
     })
 
     it('Test 2 - Dynamic update of the percentage sub-field when dollar amount of the down payment is changed ', () => {
-        // Find the down payment sub-fields, clear the prepopulated values and type new valid value in one of them
+        // Find the down payment dollar amount sub-field, clear the prepopulated values and type new valid value
         cy.get('#form-3_downPayment')
             .clear()
             .type('120000')
@@ -28,7 +28,7 @@ describe('Down Payment Tests', () => {
     })
 
     it('Test 3 - Dynamic update of the dollar amount sub-field when percentage of the down payment is changed ', () => {
-        // Find the down payment sub-fields, clear the prepopulated values and type new valid value in one of them
+        // Find the down payment percentage sub-field, clear the prepopulated values and type new valid value
         cy.get('#form-3_downPaymentPercent')
             .clear()
             .type('40')
@@ -42,7 +42,7 @@ describe('Down Payment Tests', () => {
 
 
     it('Test 4 - Invalid input type for the "Down payment" dollar amount sub-field (letters)', () => {
-        // Find the down payment sub-fields, clear the prepopulated values and type invalid value
+        // Find the down payment dollar amount sub-field, clear the prepopulated values and type invalid value
         cy.get('#form-3_downPayment')
             .clear()
             .type('abc')
@@ -56,7 +56,7 @@ describe('Down Payment Tests', () => {
     })
 
     it('Test 5 - Invalid input type for the "Down payment" percentage sub-field (letters)', () => {
-        // Find the down payment sub-fields, clear the prepopulated values and type invalid value
+        // Find the down payment percentage sub-field, clear the prepopulated values and type invalid value
         cy.get('#form-3_downPaymentPercent')
             .clear()
             .type('abc')
@@ -70,7 +70,7 @@ describe('Down Payment Tests', () => {
     })  
 
     it('Test 6 - Dollar amount sub-field value that exceeds the Home price field value', () => {
-        // Find the down payment sub-fields, clear the prepopulated values and type invalid value
+        // Find the down payment dollar amount sub-field, clear the prepopulated values and type invalid value
         cy.get('#form-3_downPayment')
             .clear()
             .type('300001')
@@ -84,7 +84,7 @@ describe('Down Payment Tests', () => {
     })
 
     it('Test 7 - Percentage sub-field value that exceeds 100', () => {
-        // Find the down payment sub-fields, clear the prepopulated values and type invalid value
+        // Find the down payment percentage sub-field, clear the prepopulated values and type invalid value
         cy.get('#form-3_downPaymentPercent')
             .clear()
             .type('101')
@@ -96,35 +96,4 @@ describe('Down Payment Tests', () => {
         .should('be.visible')
         .and("have.text", "Down payment percent must be less than 100")
     })
-
-
-    //Down payment percent must be less than 100
-    // it('Test 3 - Invalid input value (below $5,000)', () => {
-    //     // Find the home price field, clear the prepopulated value and tpye invalid amount
-    //     cy.get('#homePrice')
-    //         .clear()
-    //         .type('4999')
-    //     // Click away from the input field and wait for 1 sec
-    //     cy.get('body').click(0, 0)
-
-    //     // Validate the error message appears and has the expected text value
-    //     cy.get('p[id^=__c11n_]')
-    //         .should('be.visible')
-    //         .and("have.text", "Home price must be greater than or equal to 5,000")
-    // })
-
-    // it('Test 4 - Invalid input value (above 1,000,000,0000)', () => {
-    //     // Find the home price field, clear the prepopulated value and tpye invalid amount
-    //     cy.get('#homePrice')
-    //         .clear()
-    //         .type('10000000000')
-    //     // Click away from the input field and wait for 1 sec
-    //     cy.get('body').click(0, 0)
-
-    //     // Validate the error message appears and has the expected text value
-    //     cy.get('p[id^=__c11n_]')
-    //         .should('be.visible')
-    //         .and("have.text", "Home price must be less than or equal to 1,000,000,000")
-    // })
-
 })
