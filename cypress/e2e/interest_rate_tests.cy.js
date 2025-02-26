@@ -1,45 +1,41 @@
 /// <reference types="Cypress" />
 
-describe('Interest Rate Input Field Scenarios', () => {
+describe('Interest Rate Tests', () => {
     beforeEach(() => {
-        // Go to the Zillow Mortgage Calculator page before running each case
+        // Visit the mortgage calculator page
         cy.visit('https://www.zillow.com/mortgage-calculator/')
-
     })
 
-    it('Test 1 - Valid input (integer)', () => {
+    it('Test 1 - Valid input type for the interest rate field (integer)', () => {
+        // Selector for the interest rate field
+        cy.get('input[type="text"]').eq(3).as('rate')
 
-        // Intercept the API call that updates your payment information
-        cy.intercept('POST', '/api/v2/collector').as('updatePayment')
-
-        // Get the default text value for "Your payment" 
+        // Get initial payment value
         cy.get('text[y="20"]')
+            .should('exist')
             .invoke('text')
             .then((your_payment_default) => {
-
-                //Change the default interest rate value to 50
-                cy.get('#rate')
+                // Change interest rate
+                cy.get('@rate')
                     .clear()
                     .type('50')
+                    .blur()
 
-                // Wait for both API calls to complete (page fully loads)
-                cy.wait(['@updatePayment', '@updatePayment']).then(()=>{
 
-                //Get the text value for "Your payment" again and compare it to the previous value
-                //The values should not match
-                    cy.get('text[y="20"]')
+                cy.wait(1000) // Wait for calculation
+
+                // Compare values
+                cy.get('text[y="20"]')
                     .invoke('text')
-                    .should((your_payment_updated) => {
-                        expect(your_payment_default).not.to.eq(your_payment_updated)
-                    }
-                    )
-
-                })
-
+                    .then((your_payment_updated) => {
+                        cy.log(`Default payment: ${your_payment_default}`)
+                        cy.log(`Updated payment: ${your_payment_updated}`)
+                        expect(your_payment_updated).not.to.eq(your_payment_default)
+                    })
             })
     })
 
-    it('Test 2 - Invalid input (letters)', () => {
+    it('Test 2 - Invalid input type for the interest rate field (letters)', () => {
 
         // Find the interest rate field, clear the prepopulated value and type letters instead of numbers 
         cy.get('#rate')
@@ -53,4 +49,5 @@ describe('Interest Rate Input Field Scenarios', () => {
             .should('be.visible')
             .and("have.text", "'abc' is not a valid number")
     })
+
 })
