@@ -6,13 +6,12 @@ describe('Home Price Tests', () => {
         cy.visit('https://www.zillow.com/mortgage-calculator/')
     })
 
-    it('Test 1 - Default value for the home price field verification', () => {
-        // Selector for the interest rate field
+    it('Test 1 - Default value for the "Home price" field verification', () => {
         cy.get('input[type="text"]').first()
         .should('have.value', '300,000')
     })
 
-    it('Test 2 - Invalid input type for the home price field (letters)', () => {
+    it('Test 2 - Invalid input type for the "Home price" field (letters)', () => {
         // Find the home price field, clear the prepopulated value and type letters instead of numbers 
         cy.get('#homePrice')
             .clear()
@@ -27,7 +26,7 @@ describe('Home Price Tests', () => {
     })
 
     it('Test 3 - Invalid input value (below $5,000)', () => {
-        // Find the home price field, clear the prepopulated value and tpye invalid amount
+        // Find the home price field, clear the prepopulated value and type invalid amount
         cy.get('#homePrice')
             .clear()
             .type('4999')
@@ -41,7 +40,7 @@ describe('Home Price Tests', () => {
     })
 
     it('Test 4 - Invalid input value (above 1,000,000,0000)', () => {
-        // Find the home price field, clear the prepopulated value and tpye invalid amount
+        // Find the home price field, clear the prepopulated value and type invalid amount
         cy.get('#homePrice')
             .clear()
             .type('10000000000')

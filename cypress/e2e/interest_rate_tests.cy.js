@@ -6,7 +6,7 @@ describe('Interest Rate Tests', () => {
         cy.visit('https://www.zillow.com/mortgage-calculator/')
     })
 
-    it('Test 1 - Valid input type for the interest rate field (integer)', () => {
+    it('Test 1 - Valid input type for the "Interest rate" field (integer)', () => {
         // Selector for the interest rate field
         cy.get('input[type="text"]').eq(3).as('rate')
 
@@ -35,7 +35,7 @@ describe('Interest Rate Tests', () => {
             })
     })
 
-    it('Test 2 - Invalid input type for the interest rate field (letters)', () => {
+    it('Test 2 - Invalid input type for the "Interest rate" field (letters)', () => {
 
         // Find the interest rate field, clear the prepopulated value and type letters instead of numbers 
         cy.get('#rate')
