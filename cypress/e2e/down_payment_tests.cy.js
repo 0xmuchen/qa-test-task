@@ -96,4 +96,28 @@ describe('Down Payment Tests', () => {
         .should('be.visible')
         .and("have.text", "Down payment percent must be less than 100")
     })
+
+    it('Test 8 - Verify that the "Your payment" value is updated when the "Down payment" value is updated with valid data', () => {
+        // Get initial payment value
+        cy.get('text[y="20"]')
+            .should('exist')
+            .invoke('text')
+            .then((paymentDefault) => { 
+                // Find the down payment dollar amount sub-field, clear the prepopulated values and type valid value
+                cy.get('#form-3_downPayment')
+                    .clear()
+                    .type('120000')
+                // Click away from the input field and wait for 1 sec
+                cy.get('body').click(0, 0)
+
+                // Get and verify updated payment
+                cy.get('text[y="20"]')
+                    .invoke('text')
+                    .then((paymentUpdated) => { 
+                        cy.log(`Default payment: ${paymentDefault}`)
+                        cy.log(`Updated payment: ${paymentUpdated}`)
+                        expect(paymentUpdated).not.to.eq(paymentDefault)
+                    })
+            })
+    })
 })

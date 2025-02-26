@@ -61,4 +61,38 @@ describe('Load Program Tests', () => {
                     })
             })
     })
+
+    it('Test 5 - Verify that the "Your payment" value is updated when the "Loan program" option is changed', () => {
+        // Get initial payment value
+        cy.get('text[y="20"]')
+            .should('exist')
+            .invoke('text')
+            .then((paymentDefault) => { 
+                // Select 15-year fixed program
+                cy.selectLoanProgram('15 year fixed')
+                cy.wait(1000) // Wait for rate to update
+
+                // Get and verify payment after 15-year selection
+                cy.get('text[y="20"]')
+                    .invoke('text')
+                    .then((payment15Year) => {
+                        cy.log(`Default payment: ${paymentDefault}`)
+                        cy.log(`15-year fixed payment: ${payment15Year}`)
+                        expect(payment15Year).not.to.eq(paymentDefault)
+
+                        // Select 5-year ARM program
+                        cy.selectLoanProgram('5-year ARM')
+                        cy.wait(1000) // Wait for rate to update
+
+                        // Get and verify payment after 5-year ARM selection
+                        cy.get('text[y="20"]')
+                            .invoke('text')
+                            .then((payment5YearARM) => {
+                                cy.log(`5-year ARM payment: ${payment5YearARM}`)
+                                expect(payment5YearARM).not.to.eq(paymentDefault)
+                                expect(payment5YearARM).not.to.eq(payment15Year)
+                            })
+                    })
+            })
+    })
 })

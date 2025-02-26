@@ -53,4 +53,28 @@ describe('Home Price Tests', () => {
             .and("have.text", "Home price must be less than or equal to 1,000,000,000")
     })
 
+    it('Test 5 - Verify that the "Your payment" value is updated when the "Home price" value is updated with valid data', () => {
+        // Get initial payment value
+        cy.get('text[y="20"]')
+            .should('exist')
+            .invoke('text')
+            .then((paymentDefault) => {
+                // Find the home price field, clear the prepopulated value and type valid amount
+                cy.get('#homePrice')
+                    .clear()
+                    .type('400000')
+                    .blur()
+
+                cy.wait(1000) // Wait for calculation
+
+                // Get and verify updated payment
+                cy.get('text[y="20"]')
+                    .invoke('text')
+                    .then((paymentUpdated) => {
+                        cy.log(`Default payment: ${paymentDefault}`)
+                        cy.log(`Updated payment: ${paymentUpdated}`)
+                        expect(paymentUpdated).not.to.eq(paymentDefault)
+                    })
+            })
+    })
 })
