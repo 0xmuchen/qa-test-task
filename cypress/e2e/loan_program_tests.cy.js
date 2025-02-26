@@ -1,6 +1,6 @@
 /// <reference types="Cypress" />
 
-describe('Load Program Tests', () => {
+describe('Loan Program Tests', () => {
     beforeEach(() => {
         // Visit the mortgage calculator page
         cy.visit('https://www.zillow.com/mortgage-calculator/')
