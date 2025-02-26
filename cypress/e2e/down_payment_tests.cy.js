@@ -6,7 +6,7 @@ describe('Down Payment Tests', () => {
         cy.visit('https://www.zillow.com/mortgage-calculator/')
     })
 
-    it('Test 1 - Default value for the home price field verification', () => {
+    it('Test 1 - Default value for the "Down payment" sub-fields verification', () => {
         cy.get('#form-3_downPayment')
         .should('have.value', '60,000')
 

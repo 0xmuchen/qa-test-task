@@ -23,3 +23,14 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('selectLoanProgram', (program) => {
+    const programMap = {
+        '30 year fixed': 'Fixed30Year',
+        '15 year fixed': 'Fixed15Year',
+        '5-year ARM': 'ARM5'
+    }
+
+    cy.get('#form-3_term')
+        .select(programMap[program])
+})
